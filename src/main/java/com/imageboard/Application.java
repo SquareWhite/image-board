@@ -15,35 +15,35 @@ public class Application {
         SpringApplication.run(Application.class);
     }
 
-//    @Bean
-//    CommandLineRunner initDatabase(
-//            ThemeRepository themeRepository,
-//            ThreadRepository threadRepository,
-//            MessageRepository messageRepository) {
-//        return (args) -> Arrays.asList("theme1", "theme2", "theme3").forEach(
-//                (themeName) -> {
-//                    themeRepository.save(new Theme(themeName));
-//                    Arrays.asList("thread1", "thread2", "thread3").forEach(
-//                            (threadName) -> {
-//                                Thread temp = new Thread(
-//                                        themeRepository.findByName(themeName),
-//                                        threadName,
-//                                        new Date(System.currentTimeMillis()));
-//                                threadRepository.save(temp);
-//                                Arrays.asList("Message1", "Message2", "Message3").forEach(
-//                                        (messageContent) -> messageRepository.save(new Message(
-//                                                temp,
-//                                                new Date(System.currentTimeMillis()),
-//                                                messageContent,
-//                                                "Image"
-//                                        ))
-//                                );
-//                            });
-//
-//
-//                }
-//        );
-//    }
+   @Bean
+   CommandLineRunner initDatabase(
+           ThemeRepository themeRepository,
+           ThreadRepository threadRepository,
+           MessageRepository messageRepository) {
+       return (args) -> Arrays.asList("theme1", "theme2", "theme3").forEach(
+               (themeName) -> {
+                   themeRepository.save(new Theme(themeName));
+                   Arrays.asList("thread1", "thread2", "thread3").forEach(
+                           (threadName) -> {
+                               Thread temp = new Thread(
+                                       themeRepository.findByName(themeName),
+                                       threadName,
+                                       new Date(System.currentTimeMillis()));
+                               threadRepository.save(temp);
+                               Arrays.asList("Message1", "Message2", "Message3").forEach(
+                                       (messageContent) -> messageRepository.save(new Message(
+                                               temp,
+                                               new Date(System.currentTimeMillis()),
+                                               messageContent,
+                                               "Image"
+                                       ))
+                               );
+                           });
+
+
+               }
+       );
+   }
 
 }
 
