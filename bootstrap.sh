@@ -19,12 +19,8 @@ echo "debconf shared/accepted-oracle-license-v1-1 seen true" | \
 apt-get install -y oracle-java8-installer
 apt-get install -y maven
 
-# echo "mysql-server mysql-server/root_password password" | \
-# 	debconf-set-selections
-# echo "mysql-server mysql-server/root_password_again password" | \
-# 	debconf-set-selections
 export DEBIAN_FRONTEND=noninteractive
-sudo -E apt-get -y -q install mysql-server
+apt-get -y install mysql-server
 
 mysql -e "CREATE DATABASE imageboard"
 mysql -e "UPDATE mysql.user SET Password = PASSWORD('qwerty123456') WHERE User = 'root'"
