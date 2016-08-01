@@ -1,32 +1,26 @@
 package com.imageboard;
 
-import com.fasterxml.jackson.annotation.*;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="name")
+@Data
 public class Theme {
 
     @Id
-    private String name;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "theme", fetch = FetchType.EAGER)
     private Collection<Thread> threads;
+
+    private String name;
 
     public Theme(String name) {
         this.name = name;
     }
 
-    public String getName(){
-        return name;
-    }
-
-    public Collection<Thread> getThreads() {
-        return threads;
-    }
-
-    protected Theme(){}
+    Theme () {};
 }

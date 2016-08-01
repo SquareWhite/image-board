@@ -27,13 +27,11 @@ public class Application {
                            (threadName) -> {
                                Thread temp = new Thread(
                                        themeRepository.findByName(themeName),
-                                       threadName,
-                                       new Date(System.currentTimeMillis()));
+                                       threadName);
                                threadRepository.save(temp);
                                Arrays.asList("Message1", "Message2", "Message3").forEach(
                                        (messageContent) -> messageRepository.save(new Message(
                                                temp,
-                                               new Date(System.currentTimeMillis()),
                                                messageContent,
                                                "Image"
                                        ))

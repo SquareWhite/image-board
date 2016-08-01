@@ -1,18 +1,21 @@
 package com.imageboard;
 
-import com.fasterxml.jackson.annotation.*;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
 
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+@Data
 public class Thread {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @OneToMany(mappedBy = "thread", fetch = FetchType.EAGER)
+    private Collection<Message> messages;
 
     @ManyToOne
     private Theme theme;
@@ -20,35 +23,15 @@ public class Thread {
     private String name;
     private Date date;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "thread", fetch = FetchType.EAGER)
-    private Collection<Message> messages;
-
-    public Thread(Theme theme, String name, Date date) {
+    public Thread(Theme theme, String name) {
         this.theme = theme;
         this.name = name;
-        this.date = date;
     }
 
-    public Collection<Message> getMessages() {
-        return messages;
+    @PrePersist
+    void createdAt() {
+        this.date = new Date();
     }
 
-    public Theme getTheme() {
-        return theme;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    protected Thread(){}
-
-    public String getName() {
-        return name;
-    }
-
-    public Date getDate() {
-        return date;
-    }
+    Thread () {};
 }

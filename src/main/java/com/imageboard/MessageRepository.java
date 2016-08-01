@@ -8,5 +8,4 @@ import java.util.Collection;
 
 @Repository
 public interface MessageRepository extends CrudRepository<Message, Long> {
-    Collection<Message> findByThreadId(Long id);
 }
