@@ -5,20 +5,20 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.Collection;
 
-@Entity
 @Data
-public class Theme {
+@Entity
+public class Theme{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long themeId;
 
-    @OneToMany(mappedBy = "theme", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "theme", fetch = FetchType.LAZY)
     private Collection<Thread> threads;
 
     private String name;
 
-    public Theme(String name) {
+    public Theme( String name) {
         this.name = name;
     }
 

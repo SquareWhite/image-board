@@ -5,7 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.sql.Date;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -30,11 +29,17 @@ public class Application {
                                        threadName);
                                threadRepository.save(temp);
                                Arrays.asList("Message1", "Message2", "Message3").forEach(
-                                       (messageContent) -> messageRepository.save(new Message(
+                                       (messageContent) -> {
+                                           try {
+                                               java.lang.Thread.sleep(1000);
+                                           } catch (InterruptedException e) {
+                                               e.printStackTrace();
+                                           }
+                                           messageRepository.save(new Message(
                                                temp,
                                                messageContent,
-                                               "Image"
-                                       ))
+                                               "Image"));
+                                       }
                                );
                            });
 

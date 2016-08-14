@@ -1,11 +1,10 @@
 package com.imageboard;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
+import static javafx.scene.input.KeyCode.T;
 
 @Repository
-public interface MessageRepository extends CrudRepository<Message, Long> {
+public interface MessageRepository extends PagingAndSortingRepository<Message, Long> {
 }

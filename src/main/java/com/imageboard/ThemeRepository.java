@@ -7,6 +7,6 @@ import java.util.Collection;
 
 @Repository
 public interface ThemeRepository extends CrudRepository<Theme, Long>{
-    Theme findByName(String name);
     Collection<Theme> findAll();
+    Theme findByName(String name);
 }

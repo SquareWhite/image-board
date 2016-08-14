@@ -1,10 +1,10 @@
 package com.imageboard;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 
-@RestController
-public class Controller {
+@Controller
+public class IndexController {
     @RequestMapping(value = "/")
     public String index(){
         return "index";

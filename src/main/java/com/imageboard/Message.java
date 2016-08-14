@@ -5,13 +5,13 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
 @Data
+@Entity
 public class Message{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long messageId;
 
     @ManyToOne
     private Thread thread;
@@ -20,7 +20,7 @@ public class Message{
     private String content;
     private String image;
 
-    public Message(Thread thread, String content, String image) {
+    public Message( Thread thread, String content, String image) {
         this.thread = thread;
         this.content = content;
         this.image = image;

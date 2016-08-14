@@ -6,31 +6,31 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
 
-@Entity
 @Data
-public class Thread {
+@Entity
+public class Thread{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long threadId;
 
-    @OneToMany(mappedBy = "thread", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "thread", fetch = FetchType.LAZY)
     private Collection<Message> messages;
 
     @ManyToOne
     private Theme theme;
 
     private String name;
-    private Date date;
+    private Date dateUpdated;
 
-    public Thread(Theme theme, String name) {
+    public Thread( Theme theme, String name ) {
         this.theme = theme;
         this.name = name;
     }
 
     @PrePersist
     void createdAt() {
-        this.date = new Date();
+        this.dateUpdated = new Date();
     }
 
     Thread () {};
