@@ -1,7 +1,10 @@
-package com.imageboard;
+package com.squarewhite.imageboard.resources;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.squarewhite.imageboard.configs.CustomDateSerializer;
+import com.squarewhite.imageboard.entities.Message;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
 
@@ -16,21 +19,26 @@ public class MessageResource extends ResourceSupport{
     private final Date date;
 
     @JsonCreator
-    public MessageResource( @JsonProperty("messageId") Long id,
+    public MessageResource( @JsonProperty("messageId") Long messageId,
                             @JsonProperty("content") String content,
                             @JsonProperty("image") String image,
                             @JsonProperty("date") Date date) {
-        this.messageId = id;
+        this.messageId = messageId;
         this.content = content;
         this.image = image;
         this.date = date;
     }
 
-    public MessageResource( Message message ){
+    public MessageResource(Message message){
         messageId = message.getMessageId();
         content = message.getContent();
         image = message.getImage();
         date = message.getDate();
+    }
+
+    @JsonSerialize(using = CustomDateSerializer.class)
+    public Date getDate() {
+        return date;
     }
 
     public Long getMessageId() {
@@ -43,9 +51,5 @@ public class MessageResource extends ResourceSupport{
 
     public String getImage() {
         return image;
-    }
-
-    public Date getDate() {
-        return date;
     }
 }

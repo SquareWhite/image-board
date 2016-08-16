@@ -1,8 +1,10 @@
-package com.imageboard;
+package com.squarewhite.imageboard.entities;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.lang.*;
 import java.util.Date;
 
 @Data
@@ -20,7 +22,7 @@ public class Message{
     private String content;
     private String image;
 
-    public Message( Thread thread, String content, String image) {
+    public Message(Thread thread, String content, String image) {
         this.thread = thread;
         this.content = content;
         this.image = image;

@@ -1,7 +1,8 @@
-package com.imageboard;
+package com.squarewhite.imageboard.resources;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.squarewhite.imageboard.entities.Theme;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
 

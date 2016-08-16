@@ -1,4 +1,4 @@
-package com.imageboard;
+package com.squarewhite.imageboard.entities;
 
 import lombok.Data;
 
@@ -9,6 +9,8 @@ import java.util.Date;
 @Data
 @Entity
 public class Thread{
+
+    static final int BUMP_LIMIT = 1000;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

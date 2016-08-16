@@ -1,16 +1,21 @@
-package com.imageboard;
+package com.squarewhite.imageboard.resources;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.squarewhite.imageboard.configs.CustomDateSerializer;
+import com.squarewhite.imageboard.entities.Thread;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
 
+import java.lang.*;
 import java.util.Date;
 
 @Relation(value = "thread", collectionRelation = "threads")
 public class ThreadResource extends ResourceSupport{
 
     private final String name;
+
     private final Date dateUpdated;
 
     @JsonCreator
@@ -27,6 +32,11 @@ public class ThreadResource extends ResourceSupport{
 
     public String getName() {
         return name;
+    }
+
+    @JsonSerialize(using = CustomDateSerializer.class)
+    public Date getDateUpdated() {
+        return dateUpdated;
     }
 
 }

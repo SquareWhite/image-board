@@ -66,7 +66,7 @@ var ThreadList = React.createClass({
 				return (		
 					<div key={thread._links.self.href} className="thread">			
 						<Link to={ref}> {thread.name} </Link>
-						<p>{thread.date}</p>
+						<p>{thread.dateUpdated}</p>
 					</div>
 				);
 			}

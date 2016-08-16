@@ -1,4 +1,4 @@
-package com.imageboard;
+package com.squarewhite.imageboard;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

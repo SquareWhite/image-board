@@ -1,8 +1,9 @@
-package com.imageboard;
+package com.squarewhite.imageboard.entities;
 
 import lombok.Data;
 
 import javax.persistence.*;
+import java.lang.*;
 import java.util.Collection;
 
 @Data

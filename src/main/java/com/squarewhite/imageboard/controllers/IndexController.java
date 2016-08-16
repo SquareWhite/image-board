@@ -1,4 +1,4 @@
-package com.imageboard;
+package com.squarewhite.imageboard.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
