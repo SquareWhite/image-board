@@ -10,7 +10,7 @@ import java.util.Date;
 @Entity
 public class Thread{
 
-    static final int BUMP_LIMIT = 1000;
+    static final int BUMP_LIMIT = 500;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

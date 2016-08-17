@@ -2,6 +2,8 @@ package com.squarewhite.imageboard.resources;
 
 import com.squarewhite.imageboard.controllers.ThreadController;
 import com.squarewhite.imageboard.entities.Thread;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 
@@ -19,12 +21,14 @@ public class ThreadResourceAssembler extends ResourceAssemblerSupport<Thread, Th
 
     @Override
     public ThreadResource toResource(Thread thread) {
-        Long id = thread.getThreadId();
         ThreadResource resource = new ThreadResource(thread);
 
-        resource.add(linkTo(methodOn(ThreadController.class).getThread(id)).withSelfRel());
-        resource.add(linkTo(methodOn(ThreadController.class).listMessagesOfThread(id)).withRel("messages"));
-        resource.add(linkTo(methodOn(ThreadController.class).getThemeOfThread(id)).withRel("theme"));
+        ControllerLinkBuilder self =
+                linkTo( methodOn( ThreadController.class ).getThread( thread.getThreadId() ));
+
+        resource.add(self.withSelfRel());
+        resource.add(self.slash("/messages").withRel("messages"));
+        resource.add(self.slash("/theme").withRel("theme"));
         return resource;
     }
 }

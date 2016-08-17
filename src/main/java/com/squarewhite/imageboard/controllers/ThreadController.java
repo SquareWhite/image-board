@@ -7,7 +7,11 @@ import com.squarewhite.imageboard.repositories.MessageRepository;
 import com.squarewhite.imageboard.repositories.ThreadRepository;
 import com.squarewhite.imageboard.resources.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -53,12 +57,11 @@ public class ThreadController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{threadId}/messages")
-    public @ResponseBody ResponseEntity<?> listMessagesOfThread(@PathVariable Long threadId){
-        Iterable<Message> messages = threadRepo.findOne(threadId).getMessages();
-        List<MessageResource> embeddedResources = messageAssembler.toResources(messages);
-        Resources resources = new Resources<>(embeddedResources);
-
-        return new ResponseEntity<>(resources, HttpStatus.OK);
+    public @ResponseBody PagedResources<?> listMessagesOfThread(@PathVariable Long threadId,
+                                                                @PageableDefault(size = 100) Pageable pageable,
+                                                                PagedResourcesAssembler assembler){
+        Page<Message> messages = messageRepo.findMessagesByThreadId(threadId, pageable);
+        return assembler.toResource(messages, messageAssembler);
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/{threadId}")

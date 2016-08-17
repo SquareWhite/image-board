@@ -3,6 +3,8 @@ package com.squarewhite.imageboard.resources;
 
 import com.squarewhite.imageboard.controllers.ThemeController;
 import com.squarewhite.imageboard.entities.Theme;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 
@@ -19,11 +21,13 @@ public class ThemeResourceAssembler extends ResourceAssemblerSupport<Theme, Them
 
     @Override
     public ThemeResource toResource(Theme theme) {
-        Long id = theme.getThemeId();
         ThemeResource resource = new ThemeResource(theme);
 
-        resource.add(linkTo(methodOn(ThemeController.class).getTheme(id)).withSelfRel());
-        resource.add(linkTo(methodOn(ThemeController.class).listThreadsOfTheme(id)).withRel("threads"));
+        ControllerLinkBuilder self =
+                linkTo( methodOn( ThemeController.class ).getTheme( theme.getThemeId() ));
+
+        resource.add(self.withSelfRel());
+        resource.add(self.slash("/threads").withRel("threads"));
         return resource;
     }
 }

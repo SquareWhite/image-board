@@ -6,12 +6,14 @@ import com.squarewhite.imageboard.repositories.ThemeRepository;
 import com.squarewhite.imageboard.repositories.ThreadRepository;
 import com.squarewhite.imageboard.resources.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,14 +50,11 @@ public class ThemeController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{themeId}/threads")
-    public @ResponseBody ResponseEntity<?> listThreadsOfTheme(@PathVariable Long themeId){
-        Theme theme = themeRepo.findOne(themeId);
-        Iterable<Thread> threads = theme.getThreads();
-
-        List<ThreadResource> embeddedResources = threadAssembler.toResources(threads);
-        Resources resources = new Resources<>(embeddedResources);
-
-        return new ResponseEntity<>(resources, HttpStatus.OK);
+    public @ResponseBody PagedResources<?> listThreadsOfTheme( @PathVariable Long themeId,
+                                                               Pageable pageable,
+                                                               PagedResourcesAssembler assembler) {
+        Page<Thread> threads = threadRepo.findThreadsByThemeId(themeId, pageable);
+        return assembler.toResource(threads, threadAssembler);
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/{themeId}")
