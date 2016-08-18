@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 
+import static javafx.scene.input.KeyCode.T;
+
 @Repository
 public interface ThemeRepository extends CrudRepository<Theme, Long>{
     Collection<Theme> findAll();
@@ -15,4 +17,8 @@ public interface ThemeRepository extends CrudRepository<Theme, Long>{
     @Secured("ROLE_ADMIN")
     @Override
     void delete(Long id);
+
+    @Secured("ROLE_ADMIN")
+    @Override
+    <S extends Theme> S save(S theme);
 }

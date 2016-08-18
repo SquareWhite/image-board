@@ -10,7 +10,7 @@ import java.util.Date;
 @Entity
 public class Thread{
 
-    static final int BUMP_LIMIT = 500;
+    public static final int BUMP_LIMIT = 500;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,10 +24,16 @@ public class Thread{
 
     private String name;
     private Date dateUpdated;
+    private boolean closed;
 
     public Thread( Theme theme, String name ) {
+        this(theme, name, false);
+    }
+
+    public Thread( Theme theme, String name, Boolean closed ) {
         this.theme = theme;
         this.name = name;
+        this.closed = closed;
     }
 
     @PrePersist

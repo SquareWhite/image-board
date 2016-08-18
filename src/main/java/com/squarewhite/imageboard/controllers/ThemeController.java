@@ -66,6 +66,12 @@ public class ThemeController {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public @ResponseBody ResponseEntity<?> addTheme(@RequestBody Theme theme){
+        themeRepo.save(theme);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
     @RequestMapping(method = RequestMethod.DELETE, path = "/{themeId}")
     public @ResponseBody ResponseEntity<?> deleteTheme(@PathVariable Long themeId){
         themeRepo.delete(themeId);

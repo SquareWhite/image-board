@@ -67,15 +67,32 @@ public class ThreadController {
     @RequestMapping(method = RequestMethod.POST, path = "/{threadId}")
     public @ResponseBody ResponseEntity<?> addMessage(@PathVariable Long threadId, @RequestBody Message message){
         Thread targetThread = threadRepo.findOne(threadId);
+
+        if( targetThread.isClosed() )
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+
         message.setThread(targetThread);
         messageRepo.save(message);
 
-        if(!message.getContent().equals("sage")) {
-            targetThread.setDateUpdated(message.getDate());
-            threadRepo.save(targetThread);
+        updateThreadInfo(targetThread, message);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    private void updateThreadInfo(Thread thread, Message message){
+        boolean threadNeedsUpdate = false;
+
+        if( !message.getContent().equals("sage") ) {
+            thread.setDateUpdated(message.getDate());
+            threadNeedsUpdate = true;
         }
 
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        if( thread.getMessages().size() >= Thread.BUMP_LIMIT ) {
+            thread.setClosed(true);
+            threadNeedsUpdate = true;
+        }
+
+        if( threadNeedsUpdate )
+            threadRepo.save(thread);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/{threadId}")
