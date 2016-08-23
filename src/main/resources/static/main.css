@@ -1,3 +1,12 @@
+a{
+    text-decoration: none;
+    color: #24242424;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
 .themes, .threads{
     text-transform: uppercase;
     font-size: 30px;
@@ -6,13 +15,63 @@
 .theme, .thread, .message{
     background-color: #eee;
     margin: 15px;
+    padding-left: 15px;
 }
 
-a{
-    text-decoration: none;
-    color: #24242424;
+.thread p {
+	display: inline;
+	font-size: 10pt;
 }
 
-a:hover{
-    text-decoration: underline;
+.thread-closed{
+	border-left: 15px solid #f00;
+}
+
+.thread-opened{
+	border-left: 15px solid #080;
+}
+
+.thread-form{
+	height: 35px;
+	background-color: #eee;
+	font-size: 23pt;
+	margin: 15px;
+	padding-left: 30px;
+}
+
+.thread-form:hover{
+	cursor: pointer;
+}
+
+.message-form{
+	margin: 30px 0 0 15px;
+}
+
+.msg-form-img, .msg-form-content, .msg-form-btn{
+	display: block;
+	width: 400px;
+}
+
+.msg-form-content{
+	height: 200px;
+	margin-bottom: 15px;
+	vertical-align: text-top;
+}
+
+.msg-form-btn{
+	height: 50px;
+	background-color: #eee;
+}
+
+.page-buttons{
+	margin: 15px;
+	float: right;
+}
+
+.page-button{
+	height: 40px;
+	width: 80px;
+	margin-left: 15px;
+
+	background-color: #eee;
 }
