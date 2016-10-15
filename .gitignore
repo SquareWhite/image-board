@@ -1,0 +1,6 @@
+.idea/
+.vagrant/
+imageboard.iml
+src/main/resources/static/built/
+src/main/resources/static/node_modules/
+target/
